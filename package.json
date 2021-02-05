@@ -1,0 +1,52 @@
+{
+  "name": "@vcloud/sort-picker",
+  "version": "1.0.0",
+  "description": "",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "dev": "vue-cli-service serve",
+    "build": "vue-cli-service build --target lib --name SortPicker --filename sort-picker src/index.js && vue-cli-service build --no-clean",
+    "lint": "vue-cli-service lint"
+  },
+  "main": "dist/sort-picker.umd.min.js",
+  "dependencies": {
+    "js-pinyin": "^0.1.9"
+  },
+  "devDependencies": {
+    "vue": "^2.6.11",
+    "@vue/cli-plugin-babel": "~4.2.0",
+    "@vue/cli-plugin-eslint": "~4.2.0",
+    "@vue/cli-service": "~4.2.0",
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.7.2",
+    "eslint-plugin-vue": "^6.1.2",
+    "vue-template-compiler": "^2.6.11",
+    "core-js": "^3.6.4",
+    "node-sass": "^4.13.1",
+    "sass-loader": "^8.0.2",
+    "vue-router": "^3.3.4"
+  },
+  "eslintConfig": {
+    "root": true,
+    "env": {
+      "node": true
+    },
+    "extends": [
+      "plugin:vue/essential"
+    ],
+    "parserOptions": {
+      "parser": "babel-eslint"
+    },
+    "rules": {}
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.vphotos.cn:weizeyan/sort-picker.git"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions"
+  ]
+}
