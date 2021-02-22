@@ -5,8 +5,17 @@
 <template>
   <div class="sort-picker">
     <div class="search-bar">
-      <input type="text" @input="input" class="inp" v-model="key">
-      <a class="cancel" href="#" @click.prevent>取消</a>
+      <input type="text" @input="input" class="inp" @focus="inputFocus" v-model.trim="key">
+      <a class="cancel" href="#" v-if="searchBarIsOpen" @click.prevent="closeSearchBar">取消</a>
+    </div>
+    <div class="search-result" v-if="searchBarIsOpen">
+      <div class="search-result-mask" v-if="!key"></div>
+      <div class="search-result-list" v-else>
+        <ul v-if="searchResult.length">
+          <li v-for="item in searchResult" @click="pick(item)" :key="item.id">{{item.name}}</li>
+        </ul>
+        <div v-else class="search-result-empty">未查询到内容</div>
+      </div>
     </div>
     <div class="group-list" ref="groupList">
       <div :data-letter="group.letter" class="group" v-for="group in letterGroups" :key="group.letter">
@@ -28,10 +37,7 @@
 		computed: {
 		},
 		props: {
-      //v-model value属性
-      value: {
-        type: [String, Number]
-      },
+     
       //数据源
       source: {
         type: [Array],
@@ -42,7 +48,7 @@
 		},
 		data(){
 			return {
-        val: this.value + '',
+        val: '',
         list: this.source.map((item) => {
          return {
            ...item,
@@ -51,26 +57,14 @@
            letter: pinyin.getFullChars(item.name).slice(0, 1)
          }
         }),
-        key: ''
+        key: '',
+        searchBarIsOpen: false,
+        searchResult: []
+
 			}
 		},
      
-		watch: {
-      /**
-       * 监听value更改,update val
-      */
-			value(v){
-        console.log('watch value', v);
-        this.val = v + '';
-      },
-      /**
-       * 监听val更改,发送input事件
-      */
-      val(v){
-        console.log('watch val', v);
-        this.$emit('input', v);
-      }
-		},
+		
     computed: {
       /**
        * 所选项列表
@@ -113,33 +107,55 @@
 		},
 		methods: {
       /**
-       * 选择、取消选择
+       * 选择
       */
 			async pick(item){
         let id = item.id;
         this.val = id + '';
         await this.$nextTick();
         this.$emit('change', item);
-        /*
-        let ids = this.val ? this.val.split(',') : [];
-        if(ids.indexOf(id) === -1){
-          ids.push(id);
-          this.val = ids.join(',');
-          return;
-        }
-        ids = ids.filter((_id) => {
-          return _id !== id;
-        });
-        this.val = ids.join(',');
-        */
       },
+      /**
+       * 定位到字母区域
+      */
       scrollTo(letter){
         let groupContainer = this.$refs.groupList.querySelector("[data-letter='"+ letter +"']");
         let offsetTop = groupContainer.offsetTop;
         this.$refs.groupList.scrollTop = offsetTop;
       },
+      /**
+       * 模糊检索
+        中文名模糊匹配
+        全拼模糊匹配(开头)
+        首字母模糊匹配(开头)
+      */
       input(e){
         console.log('input', this.key);
+        let key = this.key;
+        if(!key){
+          return;
+        }
+        let isFullLetter = /^\w+$/.test(key);
+        let namePattern = new RegExp(key);
+        let qp = pinyin.getFullChars(key);
+        let qpPattern = new RegExp('^' + key, 'i');
+        let jp = pinyin.getCamelChars(key);
+        let jpPattern = new RegExp('^' + key, 'i');
+        let list = this.list.filter((item) => {
+          //return isFullLetter ? qp.toLowerCase() == item.qp.toLowerCase()  || jp.toLowerCase() == item.jp.toLowerCase() : namePattern.test(item.name);
+          return isFullLetter ? qpPattern.test(item.qp) || jpPattern.test(item.jp) : namePattern.test(item.name);
+        });
+        this.searchResult = list;
+        console.log('list', list.map((item) => {return item.name}));
+      },
+      inputFocus(){
+        this.openSearchBar();
+      },
+      openSearchBar(){
+        this.searchBarIsOpen = true;
+      },
+      closeSearchBar(){
+        this.searchBarIsOpen = false;
       }
 		},
 		beforeDestroy(){
