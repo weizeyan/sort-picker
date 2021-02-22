@@ -43,7 +43,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@git.vphotos.cn:weizeyan/sort-picker.git"
+    "url": "git@github.com:weizeyan/sort-picker.git"
   },
   "browserslist": [
     "> 1%",
