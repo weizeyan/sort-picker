@@ -1,6 +1,6 @@
 {
   "name": "sort-picker",
-  "version": "1.0.2-0",
+  "version": "1.0.2-1",
   "description": "",
   "files": [
     "dist"
@@ -11,8 +11,7 @@
     "lint": "vue-cli-service lint"
   },
   "main": "dist/sort-picker.umd.min.js",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "js-pinyin": "^0.1.9",
     "vue": "^2.6.11",
