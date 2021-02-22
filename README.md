@@ -1,17 +1,19 @@
-## 安装
-```js
-npm install @vcloud/sort-picker --save;
+## sort-picker
+模拟通讯录字母排序的选择器
+## Installation
+```
+npm install sort-picker --save;
 ```
 
-## 注册组件
-```js
+## Usage
+```
 import Vue from 'vue';
-import '@vcloud/sort-picker/dist/sort-picker.css';
-import SortPicker from '@vcloud/sort-picker';
+import 'sort-picker/dist/sort-picker.css';
+import SortPicker from 'sort-picker';
 Vue.use(SortPicker);
 ```
-## 使用组件
-```html
+
+```
 <template>
 	<sort-picker></sort-picker>
 </template>
