@@ -1,28 +1,78 @@
 .sort-picker{
-  .group-list{
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  background: #fff;
+  ul, li{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }  
+  a{
+    text-decoration: none;
+    color: #000;
+  }
+  .search-bar{
     position: absolute;
     left: 0;
     top: 0;
     right: 0;
+    height: 50px;
+    display: flex;
+    padding: 0 10px;
+    box-sizing: border-box;
+    .inp{
+      border: 0;
+      background: #e1e1e1;
+      margin-top: 9px ;
+      height: 20px;
+      padding: 5px;
+      &:focus{
+       outline: none;
+      }
+      flex: 1;
+    }
+    .cancel{
+      width: 50px;
+      line-height: 32px;
+      height: 32px;
+      margin-top: 9px;
+      display: block;
+      text-align: center;
+
+    }
+  }
+  .group-list{
+    position: absolute;
+    left: 0;
+    top: 50px;
+    right: 0;
     bottom: 0;
     overflow: auto;  
     z-index: 10;  
+    .letter{
+      line-height: 25px;
+      padding-left: 10px;
+    }
     ul{
-      margin: 0;
-      padding: 0;
+      margin-right: 20px;
+      
     }
     li{
       margin: 0;
-      padding: 0;
-      line-height: 25px; 
+      line-height: 35px; 
+      padding-left: 10px;
+      border-bottom: 1px solid #e1e1e1;
     }
     .active{
       color: #f00;
     }
     .group{
       .letter{
-        background: #999;
-        color: #fff;
+        background: #e1e1e1;
+        color: #000;
         position: sticky;
         left: 0;
         top: 0;
@@ -31,6 +81,7 @@
     
   }
   .letter-bar{
+    background: #fff;
     position: absolute;
     width: 20px;
     right: 0;

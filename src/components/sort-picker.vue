@@ -4,7 +4,11 @@
 </style>
 <template>
   <div class="sort-picker">
-    <div class="group-list">
+    <div class="search-bar">
+      <input type="text" @input="input" class="inp" v-model="key">
+      <a class="cancel" href="#" @click.prevent>取消</a>
+    </div>
+    <div class="group-list" ref="groupList">
       <div :data-letter="group.letter" class="group" v-for="group in letterGroups" :key="group.letter">
         <div class="letter">{{group.letter}}</div>
         <ul>
@@ -13,7 +17,7 @@
       </div>
     </div>
     <div class="letter-bar">
-      <div class="letter" v-for="group in letterGroups" :key="group.letter">{{group.letter}}</div>
+      <div class="letter" @click="scrollTo(group.letter)" v-for="group in letterGroups" :key="group.letter">{{group.letter}}</div>
     </div>
   </div>
 </template>
@@ -46,7 +50,8 @@
            jp: pinyin.getCamelChars(item.name),
            letter: pinyin.getFullChars(item.name).slice(0, 1)
          }
-        })
+        }),
+        key: ''
 			}
 		},
      
@@ -110,8 +115,12 @@
       /**
        * 选择、取消选择
       */
-			pick(item){
+			async pick(item){
         let id = item.id;
+        this.val = id + '';
+        await this.$nextTick();
+        this.$emit('change', item);
+        /*
         let ids = this.val ? this.val.split(',') : [];
         if(ids.indexOf(id) === -1){
           ids.push(id);
@@ -122,6 +131,15 @@
           return _id !== id;
         });
         this.val = ids.join(',');
+        */
+      },
+      scrollTo(letter){
+        let groupContainer = this.$refs.groupList.querySelector("[data-letter='"+ letter +"']");
+        let offsetTop = groupContainer.offsetTop;
+        this.$refs.groupList.scrollTop = offsetTop;
+      },
+      input(e){
+        console.log('input', this.key);
       }
 		},
 		beforeDestroy(){
