@@ -12,9 +12,9 @@
   },
   "main": "dist/sort-picker.umd.min.js",
   "dependencies": {
-    "js-pinyin": "^0.1.9"
   },
   "devDependencies": {
+    "js-pinyin": "^0.1.9",
     "vue": "^2.6.11",
     "@vue/cli-plugin-babel": "~4.2.0",
     "@vue/cli-plugin-eslint": "~4.2.0",

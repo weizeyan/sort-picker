@@ -8,7 +8,7 @@
 </template>
 <script>
 import SortPicker from '@/components/sort-picker';
-import citys from '@/citys.json';
+
 export default {
   components: {
 		
@@ -18,15 +18,18 @@ export default {
   data(){
     return {
       
-      source: citys.map((city) => {
-        let data = city.split(/\|/);
-        return {
-          name: data[0],
-          id: data[3]
-        };
-      }),
+      source: [
+        {
+          id: '1',
+          name: '张三'
+        },
+        {
+          id: '2',
+          name: '李四'
+        }
+      ],
       item: null,
-      open: true
+      open: false
     }
   },
 	mounted(){

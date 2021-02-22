@@ -5,7 +5,7 @@
 <template>
   <div class="sort-picker">
     <div class="search-bar">
-      <input type="text" @input="input" class="inp" @focus="inputFocus" v-model.trim="key">
+      <input type="text" placeholder="名称/拼音" @input="input" class="inp" @focus="inputFocus" v-model.trim="key">
       <a class="cancel" href="#" v-if="searchBarIsOpen" @click.prevent="closeSearchBar">取消</a>
     </div>
     <div class="search-result" v-if="searchBarIsOpen">
